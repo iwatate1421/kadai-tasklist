@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Task; 
 
@@ -36,6 +37,21 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+
+        
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|max:255',
+        ], [
+            'content.required' => 'メッセージを入力してください。',
+            'content.max' => 'メッセージは255文字以内で入力してください。',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         // メッセージを作成
         $task = new Task;
         $task->content = $request->content;
@@ -76,6 +92,20 @@ class TasksController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|max:255',
+        ], [
+            'content.required' => 'メッセージを入力してください。',
+            'content.max' => 'メッセージは255文字以内で入力してください。',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect('/')
+                ->withErrors($validator)
+                ->withInput();
+        }
+    
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
         // メッセージを更新
