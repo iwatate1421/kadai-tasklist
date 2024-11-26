@@ -40,10 +40,14 @@ class TasksController extends Controller
 
         
         $validator = Validator::make($request->all(), [
+            'status' => 'required|max:10',
             'content' => 'required|max:255',
+            
         ], [
-            'content.required' => 'メッセージを入力してください。',
-            'content.max' => 'メッセージは255文字以内で入力してください。',
+            'status.required' => 'ステータスを入力してください。',
+            'status.max' => 'ステータスは10文字以内で入力してください。',
+            'content.required' => 'タスク内容を入力してください。',
+            'content.max' => 'タスク内容は255文字以内で入力してください。',
         ]);
     
         if ($validator->fails()) {
@@ -55,6 +59,7 @@ class TasksController extends Controller
         // メッセージを作成
         $task = new Task;
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
 
         // トップページへリダイレクトさせる
@@ -92,13 +97,18 @@ class TasksController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+
         $validator = Validator::make($request->all(), [
+            'status' => 'required|max:10',
             'content' => 'required|max:255',
+            
         ], [
-            'content.required' => 'メッセージを入力してください。',
-            'content.max' => 'メッセージは255文字以内で入力してください。',
+            'status.required' => 'ステータスを入力してください。',
+            'status.max' => 'ステータスは10文字以内で入力してください。',
+            'content.required' => 'タスク内容を入力してください。',
+            'content.max' => 'タスク内容は255文字以内で入力してください。',
         ]);
+
     
         if ($validator->fails()) {
             return redirect('/')
@@ -110,6 +120,7 @@ class TasksController extends Controller
         $task = Task::findOrFail($id);
         // メッセージを更新
         $task->content = $request->content;
+        $task->status = $request->status;
         $task->save();
 
         // トップページへリダイレクトさせる
