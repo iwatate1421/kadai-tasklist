@@ -1,6 +1,5 @@
 @extends('layouts.app')
 
-
 @section('content')
 
     <div class="prose mx-auto text-center">
