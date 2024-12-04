@@ -84,29 +84,39 @@ class TasksController extends Controller
     {
         // idの値でメッセージを検索して取得
         $task = Task::findOrFail($id);
-
+        
+        // 認証済みユーザーがタスクの所有者でない場合、トップページにリダイレクト
+        if (\Auth::id() !== $task->user_id) {
+            return redirect('/')->with('error', '他人のタスクは閲覧できません。');
+        }
+        
         // メッセージ詳細ビューでそれを表示
         return view('tasks.show', ['task' => $task,]);
     }
 
     /**
      * Show the form for editing the specified resource.
+     *    public function edit(string $id)
      */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
         // idの値でメッセージを検索して取得
-        $task = Task::findOrFail($id);
+        //$task = Task::findOrFail($id);
+        
+        // 認証済みユーザーがタスクの所有者でない場合、トップページにリダイレクト
+        if (\Auth::id() !== $task->user_id) {
+            return redirect('/')->with('error', '他人のタスクは閲覧できません。');
+        }
 
         // メッセージ編集ビューでそれを表示
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        return view('tasks.edit', compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
+     * public function update(Request $request, string $id)
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
 
         $validator = Validator::make($request->all(), [
@@ -128,7 +138,7 @@ class TasksController extends Controller
         }
     
         // idの値でメッセージを検索して取得
-        $task = Task::findOrFail($id);
+        //$task = Task::findOrFail($id);
         // メッセージを更新
         $task->content = $request->content;
         $task->status = $request->status;

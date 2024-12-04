@@ -19,9 +19,11 @@
                             {{-- タスク内容 --}}
                             {{-- <p class="mb-0">{!! nl2br(e($task->content)) !!}</p> --}}
                             <p class="mb-0">
-                                {!! nl2br(e($task->id . '  :  ' . $task->status . '  :  ' . $task->content)) !!}
+                                <a href="{{ route('tasks.edit', ['task' => $task->id]) }}" class="text-blue-500 hover:underline">
+                                    {{ $task->id }}
+                                </a>
+                                : {{ $task->status }} : {!! nl2br(e($task->content)) !!}
                             </p>
-
                         </div>
                         <div>
                             @if (Auth::id() == $task->user_id)

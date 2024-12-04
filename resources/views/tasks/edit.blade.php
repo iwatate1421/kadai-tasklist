@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="prose ml-4">
-        <h2 class="text-lg">id: {{ $task->id }} のタスク内容の編集ページ</h2>
+        <h2 class="text-lg">id: {{ $task->id }} のタスク内容の編集</h2>
     </div>
 
     <div class="flex justify-center">
@@ -25,6 +25,8 @@
                 </div>
 
             <button type="submit" class="btn btn-primary btn-outline">更新</button>
+            <!-- 戻るボタン -->
+            <a href="{{ route('dashboard') }}" class="btn btn-primary btn-outline">戻る</a>
         </form>
     </div>
 
