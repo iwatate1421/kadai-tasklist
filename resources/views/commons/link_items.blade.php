@@ -5,11 +5,11 @@
     <li><a class="link link-hover" href="#">{{ Auth::user()->name }}&#39;s profile</a></li>
     <li class="divider lg:hidden"></li>
     {{-- ログアウトへのリンク --}}
-    <li><a class="link link-hover" href="#" onclick="event.preventDefault();this.closest('form').submit();">Logout</a></li>
+    <li><a class="link link-hover" href="#" onclick="event.preventDefault();this.closest('form').submit();">ログアウト</a></li>
 @else
     {{-- ユーザー登録ページへのリンク --}}
-    <li><a class="link link-hover" href="{{ route('register') }}">Signup</a></li>
+    <li><a class="link link-hover" href="{{ route('register') }}">ユーザ登録</a></li>
     <li class="divider lg:hidden"></li>
     {{-- ログインページへのリンク --}}
-    <li><a class="link link-hover" href="{{ route('login') }}">Login</a></li>
+    <li><a class="link link-hover" href="{{ route('login') }}">ログイン</a></li>
 @endif
