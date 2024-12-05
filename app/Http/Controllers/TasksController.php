@@ -70,11 +70,9 @@ class TasksController extends Controller
             'content' => $request->content,
             'status' => $request->status
         ]);
-        // 前のURLへリダイレクトさせる
-        return back();
-        
+
         // トップページへリダイレクトさせる
-        // return redirect('/');
+        return redirect('/');
     }
 
     /**
